@@ -18,17 +18,16 @@ class Carro(BaseModel):
     carga_promedio: int
     luz_alarma_freno: int
     
+
 @app.post("/predict/")
 def predict(data: Carro):
-    x_new = pd.DataFrame([[data.kms_recorridos, data.años_uso, data.ultima_revision,
-                           data.temperatura_frenos, data.cambios_pastillas, data.estilo_conduccion,
-                           data.carga_promedio, data.luz_alarma_freno]], columns=columnas)
+    x_new = pd.DataFrame([[data.kms_recorridos, data.años_uso, data.ultima_revision, data.temperatura_frenos, data.cambios_pastillas, data.estilo_conduccion, data.carga_promedio, data.luz_alarma_freno]], columns=columnas)
     prediccion = modelo.predict(x_new)
     if prediccion[0] == 0:
-        mensaje = "NO falla"
+        mensaje1 = "NO falla 🚗✅"
     else:
-        mensaje = "SI falla"
-    return {"mensaje_prediccion": mensaje}
+        mensaje1 = "SÍ falla 🚨"
+    return {"mensaje_prediccion": mensaje1}
     
 @app.get("/")
 def home():
